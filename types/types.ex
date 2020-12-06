@@ -18,4 +18,11 @@ defmodule Types do
     def bool do
         false == true
     end
+    def atom do
+        :atom
+    end
+    def string do
+        name = "Texto"
+        IO.puts("#{name} \n #{name} é aqui " <> name)
+    end
 end
