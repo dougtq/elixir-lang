@@ -23,6 +23,22 @@ defmodule Types do
     end
     def string do
         name = "Texto"
+        char = String.to_charlist("Douglas")
         IO.puts("#{name} \n #{name} é aqui " <> name)
+    end
+    def list do
+        a = ["Texto", 1, 5]
+        b = [2, 4, :true]
+        c = ["Texto"]
+
+        d = a ++ b
+        e = d -- c
+
+        [head] = e
+
+        head
+    end
+    def tuples do
+        { "jack", 2, :jack, [1]}
     end
 end
