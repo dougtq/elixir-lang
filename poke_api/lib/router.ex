@@ -25,20 +25,20 @@ defmodule PokeApi.Router do
 
         cond do
           String.downcase(response.body) == "not found" ->
-            { status, body } = mount_error_response("Poke not found", 404)
+            { status, body } = mount_response({ :not_found, "Poke not found" })
             conn |>
             send_resp(status, body)
           true ->
             poke_details = Poison.decode!(response.body)
 
-            { status, body } = mount_response("Poke details found", 200, poke_details)
+            { status, body } = mount_response({ :ok, "Poke details found", poke_details })
 
             conn |>
             send_resp(status, body)
         end
       {:error, _} ->
 
-        { status, body } = mount_error_response("An error ocurred", 500)
+        { status, body } = mount_response({ :error, "An error ocurred" })
 
         conn |>
         send_resp(status, body)
@@ -46,30 +46,58 @@ defmodule PokeApi.Router do
   end
 
   match _ do
-    { status, body } = mount_error_response("Resource not found!", 404)
+    { status, body } = mount_response({ :not_found, "Resource not found!" })
 
     conn |>
     send_resp(status, body)
   end
 
-  defp mount_response(message, status, poke_details) do
+  # defp mount_response(message, status, poke_details) do
+  #   body = %{
+  #     message: message,
+  #     status: status || 200,
+  #     details: poke_details || nil
+  #   }
+  #
+  #   {status, Poison.encode!(body)}
+  # end
+  #
+  # # fix this with pattern matching
+  # defp mount_error_response(message, status) do
+  #   body = %{
+  #     message: message,
+  #     status: status || 500
+  #   }
+  #
+  #   {status, Poison.encode!(body)}
+  # end
+
+  defp mount_response({ :ok, message, poke_details }) do
     body = %{
       message: message,
-      status: status || 200,
+      status: 200,
       details: poke_details || nil
     }
 
-    {status, Poison.encode!(body)}
+    { body.status, Poison.encode!(body)}
   end
 
-  # fix this with patter matching
-  defp mount_error_response(message, status) do
+  defp mount_response({ :error, message }) do
     body = %{
       message: message,
-      status: status || 500
+      status: 500,
     }
 
-    {status, Poison.encode!(body)}
+    { body.status, Poison.encode!(body)}
+  end
+
+  defp mount_response({ :not_found, message }) do
+    body = %{
+      message: message,
+      status: 404,
+    }
+
+    { body.status, Poison.encode!(body)}
   end
 
   defp get_poke(poke_name) do
@@ -77,6 +105,4 @@ defmodule PokeApi.Router do
 
     HTTPoison.get(poke_api_url <> "pokemon" <> "/" <> poke_name)
   end
-
-
 end
