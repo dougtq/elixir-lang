@@ -24,7 +24,7 @@ defmodule PokeApi.Router do
         IO.puts(inspect(response))
 
         cond do
-          response.body == "Not Found" ->
+          String.downcase(response.body) == "not found" ->
             { status, body } = mount_error_response("Poke not found", 404)
             conn |>
             send_resp(status, body)
