@@ -11,6 +11,7 @@ defmodule PokeApi do
 
     Logger.info "Poke Api has started on #{port}!"
 
+    PokeApi.Database.start(nil, nil)
     Supervisor.start_link(children, [strategy: :one_for_one, name: PokeApi.Supervisor])
   end
 end

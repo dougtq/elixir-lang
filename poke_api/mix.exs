@@ -14,7 +14,7 @@ defmodule PokeApi.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :plug, :cowboy, :httpoison],
+      extra_applications: [:logger, :plug, :cowboy, :httpoison, :redix],
       mod: { PokeApi, [] }
     ]
   end
@@ -24,7 +24,8 @@ defmodule PokeApi.MixProject do
     [
       {:plug_cowboy, "~> 2.0.1"},
       {:poison, "~> 3.1"},
-      {:httpoison, "~> 1.7"}
+      {:httpoison, "~> 1.7"},
+      {:redix, "~> 1.0.0"}
     ]
   end
 end
