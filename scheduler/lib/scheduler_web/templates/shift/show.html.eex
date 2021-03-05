@@ -1,0 +1,18 @@
+<h1>Show Shift</h1>
+
+<ul>
+
+  <li>
+    <strong>Start time:</strong>
+    <%= @shift.start_time %>
+  </li>
+
+  <li>
+    <strong>End time:</strong>
+    <%= @shift.end_time %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.shift_path(@conn, :edit, @shift) %></span>
+<span><%= link "Back", to: Routes.shift_path(@conn, :index) %></span>
