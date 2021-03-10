@@ -55,5 +55,12 @@ defmodule GraphicalWeb.Schema do
       arg :id, non_null(:id)
       resolve &Graphical.PostResolver.delete/2
     end
+
+    field :login, type: :session do
+      arg :email, non_null(:string)
+      arg :password, non_null(:string)
+
+      resolve &Graphical.UserResolver.login/2
+    end
   end
 end
