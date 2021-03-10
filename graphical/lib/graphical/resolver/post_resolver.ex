@@ -5,4 +5,17 @@ defmodule Graphical.PostResolver do
     { :ok, Posts.list_posts() }
   end
 
+  def create(args, _info) do
+    Posts.create_post(args)
+  end
+
+  def update(%{ id: id, post: post_params}, _info) do
+    Posts.get_post!(id)
+    |> Posts.update_post(post_params)
+  end
+
+  def delete(%{ id: id}, _info) do
+    Posts.get_post!(id)
+    |> Posts.delete_post
+  end
 end
