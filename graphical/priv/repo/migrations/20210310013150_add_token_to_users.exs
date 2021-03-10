@@ -3,7 +3,7 @@ defmodule Graphical.Repo.Migrations.AddTokenToUsers do
 
   def change do
     alter talbe(:users) do
-      add :token, :string
+      add :token, :text
     end
   end
 end
