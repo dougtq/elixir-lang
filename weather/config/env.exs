@@ -1,0 +1,2 @@
+#System.put_env("OPENWEATHERMAP_APIKEY", )
+config :metex, OPENWEATHERMAP_APIKEY: "12f3bc2bb3b6c44c753283bc2f335581"

@@ -13,7 +13,6 @@ defmodule Weather.Router do
   end
 
   post "/fetch" do
-    IO.puts(inspect(conn.body_params))
     fetch_weather(conn, conn.body_params)
   end
 
@@ -45,14 +44,12 @@ defmodule Weather.Router do
   end
 
   defp fetch_weather(conn, %{ "city" => city }) do
-    IO.puts("entrou no def correto")
     data = Weather.fetch(city)
     IO.puts(inspect(data))
     render_json(conn, data)
   end
 
   defp fetch_weather(conn, _) do
-    IO.puts("entrou no def 500")
     conn |>
     send_resp(500, "invalid payload")
   end
