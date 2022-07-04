@@ -15,4 +15,13 @@ defmodule CardsTest do
     deck = Cards.create_deck
     refute deck == Cards.shuffle(deck)
   end
+
+  test "create a hand of cards of randomic size" do
+
+    hand_size = Enum.random(1..40)
+
+    hand = Cards.create_hand(hand_size) |> elem(0)
+
+    assert length(hand) == hand_size
+  end
 end
