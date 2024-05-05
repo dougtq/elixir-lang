@@ -61,4 +61,4 @@ config :ueberauth, Ueberauth,
 config :ueberauth,
   Ueberauth.Strategy.Github.OAuth,
   client_id: "xxxxxxxxxxxxx",
-  client_secret: "xxxxxxxxxxxxxxxxxxxxxx"
+  client_secret: "xxxxxxxxxxxxxxxxxxxx"
